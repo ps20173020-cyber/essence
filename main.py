@@ -9,7 +9,8 @@ def main():
     print("Hello from Essence!")
 
 
-def on_forever():
+def on_forever_soil():
+    """Monitor soil moisture and control servo/pin."""
     value_of_soil_moisture_0100_at_pin_P1 = 0
     if value_of_soil_moisture_0100_at_pin_P1 < 50:
         servos.P0.set_angle(90)
@@ -23,6 +24,22 @@ def on_forever():
         basic.pause(1000)
 
 
+def on_forever_light():
+    """Monitor light level and control servo/pin."""
+    if input.light_level() > 20:
+        servos.P0.set_angle(90)
+        pins.digital_write_pin(DigitalPin.P1, 1)
+        basic.show_icon(IconNames.HEART)
+        basic.pause(1000)
+    else:
+        servos.P0.set_angle(0)
+        pins.digital_write_pin(DigitalPin.P1, 0)
+        basic.show_icon(IconNames.NO)
+        basic.pause(1000)
+
+
 if __name__ == "__main__":
     main()
-    basic.forever(on_forever)
+    # Uncomment one of the following to use:
+    # basic.forever(on_forever_soil)  # For soil moisture monitoring
+    # basic.forever(on_forever_light)  # For light level monitoring
