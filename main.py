@@ -10,15 +10,14 @@ def main():
 
 
 def on_forever():
-    value_of_soil_moisture_0100_at_pin_P1 = 0
-    if value_of_soil_moisture_0100_at_pin_P1 < 50:
+    if input.light_level() > 20:
         servos.P0.set_angle(90)
-        pins.digital_write_pin(DigitalPin.P2, 0)
+        pins.digital_write_pin(DigitalPin.P1, 1)
         basic.show_icon(IconNames.HEART)
         basic.pause(1000)
     else:
         servos.P0.set_angle(0)
-        pins.digital_write_pin(DigitalPin.P2, 1)
+        pins.digital_write_pin(DigitalPin.P1, 0)
         basic.show_icon(IconNames.NO)
         basic.pause(1000)
 
